@@ -19,3 +19,4 @@ async def root(): #what is an async method?
 The @app.get("/") tells FastAPI that the function right below is in charge of handling requests that go to:
 the path /
 using a get operation'''
+
