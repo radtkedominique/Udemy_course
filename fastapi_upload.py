@@ -2,13 +2,21 @@ from fastapi import FastAPI, Request, UploadFile, HTTPException, status
 from fastapi.responses import HTMLResponse
 import aiofiles
 
+#what is uvicorn?
+
 app = FastAPI()
 
-@app.post("/upload") #post request an /upload
-async def upload(file: UploadFile):
-    content_file = await file.read()
-    async with aiofiles.open(file.filename, 'wb') as f:
-        await f.write(content_file)
+@app.post("/upload") #post request to api endpoint: /upload
+async def upload(file: UploadFile): #takes in uploaded file as param
+    try:
+        content_file = await file.read() #reads file and saves content to content_file
+        async with aiofiles.open(file.filename, 'wb') as f: #creates/opens file under same file name
+            await f.write(content_file) #and writes content of the uploaded file to the new file
+            #for saving file on server?
+    except Exception:
+        raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail='There was an error uploading the file')
+    finally:
+        await file.close() #why close when with.open() closes itself?
 
     return {'message': f'Successfuly uploaded {file.filename}'}
 
@@ -24,4 +32,5 @@ async def main():
     </form>
     </body>
     '''
-    return HTMLResponse(content=content)
+    return HTMLResponse(content=content) #when sending a get response to '/'  return HTML Protocol from above?
+#triggers post request to '/upload' and prompts upload function from above?
