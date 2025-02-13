@@ -2,8 +2,7 @@ from fastapi import FastAPI, Request, UploadFile, HTTPException, status
 from fastapi.responses import HTMLResponse
 import aiofiles
 
-#what is uvicorn?
-
+print("Docker is magic!")
 app = FastAPI()
 
 @app.post("/upload") #post request to api endpoint: /upload
