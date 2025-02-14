@@ -24,12 +24,69 @@ async def upload(file: UploadFile): #takes in uploaded file as param
 @app.get('/')
 async def main():
     content = '''
-    <body>
-    <form action='/upload' enctype='multipart/form-data' method='post'>
-    <input name='file' type='file'>
-    <input type='submit'>
-    </form>
-    </body>
+   <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload File</title>
+    <style>
+        body {
+            font-family: "Arial", sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #ffe6e6;
+            margin: 0;
+        }
+        .upload-container {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            border: 2px solid #ff6b6b;
+        }
+        h2 {
+            color: #ff6b6b;
+        }
+        input[type="file"] {
+            margin: 10px 0;
+            padding: 8px;
+            border: 1px solid #ffb6b6;
+            border-radius: 8px;
+            background: #ffe6e6;
+            color: #ff6b6b;
+            cursor: pointer;
+        }
+        input[type="submit"] {
+            background-color: #ff6b6b;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background 0.3s ease-in-out;
+            font-weight: bold;
+        }
+        input[type="submit"]:hover {
+            background-color: #ff4d4d;
+        }
+    </style>
+</head>
+<body>
+    <div class="upload-container">
+        <h2>🎀 Upload Your File 🎀</h2>
+        <form action="/upload" enctype="multipart/form-data" method="post">
+            <input name="file" type="file" required>
+            <br>
+            <input type="submit" value="Upload 💕">
+        </form>
+    </div>
+</body>
+</html>
+
     '''
     return HTMLResponse(content=content) #when sending a get response to '/'  return HTML Protocol from above?
 #triggers post request to '/upload' and prompts upload function from above?
